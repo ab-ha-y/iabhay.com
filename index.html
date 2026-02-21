@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhay Kumar Prasad</title>
+  <meta name="description" content="Cloud Security Architect & vCISO. 11+ years building security programs for enterprises like Cargill, InMobi, KPMG." />
+  <meta property="og:title" content="Abhay Kumar Prasad — Security Leader, Architect & Engineer" />
+  <meta property="og:url" content="https://iabhay.com" />
+  <link rel="canonical" href="https://iabhay.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000; color: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: rgba(88,166,255,0.3); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Scroll progress ─── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 200;
+      background: linear-gradient(90deg, #58a6ff, #a78bfa, #34d399);
+      width: 0%; transition: width 0.05s linear;
+    }
+
+    /* ─── Quantum mesh canvas ─── */
+    #quantumCanvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 clamp(1.5rem, 4vw, 3rem); height: 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(0,0,0,0); backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.4s ease;
+    }
+    nav.solid {
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(20px) saturate(1.5);
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    .nav-name {
+      font-size: 0.85rem; font-weight: 600; letter-spacing: -0.2px; color: #fff;
+      opacity: 0; transform: translateY(-8px); transition: all 0.4s ease;
+    }
+    nav.solid .nav-name { opacity: 1; transform: translateY(0); }
+    .nav-right { display: flex; align-items: center; gap: 1.75rem; }
+    .nav-right a { font-size: 0.8rem; font-weight: 400; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .nav-right a:hover { color: #fff; }
+    .nav-cta {
+      font-weight: 500 !important; color: #fff !important;
+      background: rgba(255,255,255,0.08); padding: 0.35rem 0.9rem;
+      border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.2s;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.12); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 18px; height: 1.5px; background: #fff; margin: 4px 0; border-radius: 1px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; padding: 0 clamp(1.5rem, 4vw, 3rem);
+      position: relative; z-index: 1;
+    }
+    .hero-content { max-width: 820px; position: relative; z-index: 2; will-change: transform, opacity, filter; }
+
+    .hero-eyebrow {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.3px;
+      color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      opacity: 0; animation: fadeSlideUp 0.8s ease 0.3s forwards;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,0.4);
+      animation: breathe 3s ease-in-out infinite;
+    }
+    @keyframes breathe { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── TITLE ─── */
+    .hero h1 {
+      font-size: clamp(2.8rem, 5.8vw, 4.8rem); font-weight: 800;
+      line-height: 1.08; letter-spacing: -3px;
+      margin-bottom: 1.75rem;
+    }
+    .word {
+      display: inline-block; opacity: 0;
+      transform: translateY(40px) rotateX(40deg);
+      animation: wordReveal 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+      transform-origin: bottom;
+    }
+    @keyframes wordReveal { to { opacity: 1; transform: translateY(0) rotateX(0); } }
+    .line-break { display: block; }
+    .t-white {
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .t-blue {
+      background: linear-gradient(135deg, #58a6ff 0%, #7dd3fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .t-purple {
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .t-cyan {
+      background: linear-gradient(135deg, #22d3ee 0%, #34d399 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    /* Subtle glow behind title */
+    .title-glow {
+      position: absolute; top: 50%; left: 20%; width: 400px; height: 300px;
+      background: radial-gradient(ellipse, rgba(88,166,255,0.08), transparent 70%);
+      transform: translate(-30%, -60%); pointer-events: none; z-index: -1;
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.5; transform: translate(-30%,-60%) scale(1); }
+      50% { opacity: 1; transform: translate(-30%,-60%) scale(1.1); }
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.5vw, 1.12rem); font-weight: 300;
+      line-height: 1.75; color: rgba(255,255,255,0.38);
+      max-width: 560px; margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeSlideUp 0.8s ease 1.5s forwards;
+    }
+    .hero-sub strong { color: rgba(255,255,255,0.65); font-weight: 500; }
+
+    .hero-links {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 4rem;
+      opacity: 0; animation: fadeSlideUp 0.8s ease 1.7s forwards;
+    }
+    .h-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.3rem; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 500; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .h-link svg { width: 15px; height: 15px; opacity: 0.7; }
+    .h-link-primary { background: #fff; color: #000; }
+    .h-link-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.1); }
+    .h-link-secondary {
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .h-link-secondary:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.1); transform: translateY(-1px); }
+
+    .metrics {
+      display: flex; gap: 3.5rem;
+      padding-top: 2.25rem; border-top: 1px solid rgba(255,255,255,0.06);
+      opacity: 0; animation: fadeSlideUp 0.8s ease 1.9s forwards;
+    }
+    .m-val {
+      font-size: 1.6rem; font-weight: 700; letter-spacing: -0.5px;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, #fff, rgba(255,255,255,0.55));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .m-label { font-size: 0.72rem; color: rgba(255,255,255,0.22); margin-top: 0.15rem; }
+
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0; animation: fadeSlideUp 0.8s ease 2.2s forwards;
+    }
+    .scroll-hint span { font-size: 0.6rem; color: rgba(255,255,255,0.15); letter-spacing: 3px; text-transform: uppercase; }
+    .scroll-line { width: 1px; height: 40px; position: relative; overflow: hidden; background: rgba(255,255,255,0.05); }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0;
+      width: 1px; height: 100%; background: rgba(88,166,255,0.4);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown { 0% { top: -100%; } 100% { top: 200%; } }
+
+    /* ─── CONTENT ─── */
+    .content { padding: 0 clamp(1.5rem, 4vw, 3rem); padding-bottom: 6rem; position: relative; z-index: 1; }
+    .content-inner { max-width: 720px; }
+    .s-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.05); margin: 4.5rem 0; }
+    .s-label {
+      font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.5px; color: rgba(255,255,255,0.18);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .s-label::after {
+      content: ''; flex: 1; max-width: 60px; height: 1px;
+      background: linear-gradient(90deg, rgba(88,166,255,0.3), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s;
+    }
+    .s-label.visible::after { transform: scaleX(1); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.96); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .about-text { font-size: 1.08rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.4); }
+    .about-text strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+    /* Apple-style scroll-linked word brightening */
+    .about-text .scroll-word {
+      display: inline; color: rgba(255,255,255,0.12);
+      transition: color 0.4s ease;
+    }
+    .about-text .scroll-word.lit { color: rgba(255,255,255,0.55); }
+    .about-text .scroll-word.lit-strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
+    .career-list { display: grid; gap: 0; }
+    .career-row {
+      display: grid; grid-template-columns: 100px 1fr auto; gap: 1.5rem;
+      align-items: baseline; padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      opacity: 0; transform: translateX(-20px);
+      transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .career-row:first-child { border-top: 1px solid rgba(255,255,255,0.04); }
+    .career-row.visible { opacity: 1; transform: translateX(0); }
+    .career-row:hover { background: rgba(255,255,255,0.015); padding-left: 0.75rem; padding-right: 0.75rem; border-radius: 6px; }
+    .c-year { font-size: 0.75rem; color: rgba(255,255,255,0.18); font-variant-numeric: tabular-nums; }
+    .c-role { font-size: 0.92rem; font-weight: 500; color: rgba(255,255,255,0.65); }
+    .c-role span { font-weight: 300; color: rgba(255,255,255,0.22); }
+    .c-current { font-size: 0.62rem; font-weight: 600; color: #34d399; background: rgba(52,211,153,0.08); padding: 0.15rem 0.5rem; border-radius: 4px; border: 1px solid rgba(52,211,153,0.1); }
+
+    .cred-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .cred-chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 0.9rem; border-radius: 8px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+      opacity: 0; transform: translateY(12px) scale(0.95);
+    }
+    .cred-chip.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .cred-chip:hover { border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+    .cred-chip .dot { width: 5px; height: 5px; border-radius: 50%; }
+    .dot-aws { background: #f59e0b; } .dot-k8s { background: #3b82f6; }
+    .dot-togaf { background: #22c55e; } .dot-ai { background: #a78bfa; }
+    .dot-edu { background: rgba(255,255,255,0.2); }
+    .credly-note { margin-top: 0.75rem; font-size: 0.72rem; color: rgba(255,255,255,0.12); }
+    .credly-note a { color: rgba(88,166,255,0.45); text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s; }
+    .credly-note a:hover { color: rgba(88,166,255,0.9); }
+
+    .advisory-block {
+      padding: 3rem; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(88,166,255,0.04) 0%, rgba(167,139,250,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative; overflow: hidden;
+    }
+    .advisory-block::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(88,166,255,0.4), rgba(167,139,250,0.3), transparent);
+    }
+    .advisory-block::after {
+      content: ''; position: absolute; top: -1px; left: 30%;
+      width: 120px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, #58a6ff, #a78bfa);
+      filter: blur(6px); opacity: 0.5; animation: glowSlide 5s ease-in-out infinite;
+    }
+    @keyframes glowSlide { 0%,100% { left: 15%; } 50% { left: 65%; } }
+    .adv-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 0.75rem; color: #fff; }
+    .adv-desc { font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.38); line-height: 1.75; margin-bottom: 2.25rem; max-width: 560px; }
+    .adv-desc strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+    .adv-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-bottom: 2.25rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .adv-svc {
+      padding: 1.25rem 1.25rem 1.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .adv-svc.visible { opacity: 1; transform: translateY(0); }
+    .adv-svc:not(:nth-child(3n+1)) { padding-left: 1.25rem; border-left: 1px solid rgba(255,255,255,0.04); }
+    .adv-svc-title { font-size: 0.84rem; font-weight: 600; color: rgba(255,255,255,0.65); margin-bottom: 0.25rem; }
+    .adv-svc-desc { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.55; }
+    .adv-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    .contact-strip { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; }
+    .contact-left h3 { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 0.35rem; }
+    .contact-left p { font-size: 0.85rem; color: rgba(255,255,255,0.28); }
+    .contact-left a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .contact-left a:hover { color: #fff; }
+    .social-row { display: flex; gap: 0.35rem; }
+    .s-link {
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.3); transition: all 0.3s;
+    }
+    .s-link:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+    .s-link svg { width: 16px; height: 16px; }
+    .footer-line { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.04); font-size: 0.7rem; color: rgba(255,255,255,0.1); }
+
+    @media (max-width: 640px) {
+      .nav-right { display: none; }
+      .nav-right.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: 56px; left: 0; right: 0; padding: 1rem 1.5rem;
+        background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.05); gap: 0.75rem;
+      }
+      .hamburger { display: block; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .metrics { gap: 1.75rem; flex-wrap: wrap; }
+      .career-row { grid-template-columns: 1fr; gap: 0.2rem; padding: 0.85rem 0; }
+      .c-year { order: 2; } .c-current { order: 3; width: fit-content; }
+      .adv-services { grid-template-columns: 1fr; }
+      .adv-svc { padding-left: 0 !important; border-left: none !important; }
+      .contact-strip { flex-direction: column; align-items: flex-start; }
+      .scroll-hint { display: none; }
+    }
+    @media (min-width: 641px) { .hamburger { display: none; } }
+  </style>
+</head>
+<body>
+
+  <canvas id="quantumCanvas"></canvas>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav id="navbar">
+    <a href="#" class="nav-name">Abhay Kumar Prasad</a>
+    <div class="nav-right" id="navRight">
+      <a href="#about">About</a>
+      <a href="#advisory">Advisory</a>
+      <a href="mailto:abhay.kx@gmail.com" class="nav-cta">Get in Touch</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <section class="hero" id="heroSection">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="status-dot"></span>
+        Available for advisory &amp; vCISO engagements
+      </div>
+
+      <h1>
+        <div class="title-glow"></div>
+        <span class="word t-white" style="animation-delay:0.5s">Security</span>
+        <span class="word t-white" style="animation-delay:0.62s">leader,</span>
+        <span class="line-break"></span>
+        <span class="word t-blue" style="animation-delay:0.78s">architect</span>
+        <span class="word t-white" style="animation-delay:0.88s">&amp;</span>
+        <span class="word t-cyan" style="animation-delay:0.98s">engineer.</span>
+      </h1>
+
+      <p class="hero-sub">
+        11+ years building and leading security programs at
+        <strong>Cargill</strong>, <strong>InMobi</strong>, <strong>KPMG</strong>,
+        and <strong>HBC</strong>. I help organizations secure cloud infrastructure,
+        ship AI products safely, and pass compliance audits.
+      </p>
+
+      <div class="hero-links">
+        <a href="mailto:abhay.kx@gmail.com?subject=Security%20Advisory%20Inquiry" class="h-link h-link-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Contact
+        </a>
+        <a href="https://www.linkedin.com/in/iabhay/" target="_blank" rel="noopener" class="h-link h-link-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="opacity:1"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/ab-ha-y" target="_blank" rel="noopener" class="h-link h-link-secondary">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="opacity:1"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+
+      <div class="metrics">
+        <div><div class="m-val" data-count="11" data-suffix="+">0</div><div class="m-label">Years in Security</div></div>
+        <div><div class="m-val" data-count="6" data-suffix="">0</div><div class="m-label">Enterprises Secured</div></div>
+        <div><div class="m-val" data-count="3" data-suffix="">0</div><div class="m-label">Cloud Platforms</div></div>
+        <div><div class="m-val" data-text="Top 2%">—</div><div class="m-label">Performance Rating</div></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="content" id="about">
+    <div class="content-inner">
+      <div class="s-label reveal">About</div>
+      <p class="about-text reveal" id="aboutText">
+        I'm a Senior Cloud Security Architect at Cargill, where I lead CSPM
+        initiatives across global infrastructure using Wiz, drive IaC security programs with
+        Terraform, and build LLM-powered compliance automation. Before this, I built
+        InMobi's cloud security team from scratch — leading GenAI security strategy,
+        product security at scale, and compliance audits across their entire product suite. My career
+        spans consulting at KPMG, securing retail infrastructure at HBC,
+        and fintech security at Envestnet.
+      </p>
+
+      <div class="s-divider"></div>
+
+      <div class="s-label reveal">Experience</div>
+      <div class="career-list">
+        <div class="career-row"><div class="c-year">2025 —</div><div class="c-role">Sr. Architect, Cloud Security <span>· Cargill</span></div><div class="c-current">Current</div></div>
+        <div class="career-row"><div class="c-year">2022 — 25</div><div class="c-role">Staff Cloud Security Engineer <span>· InMobi / Glance</span></div><div></div></div>
+        <div class="career-row"><div class="c-year">2021 — 22</div><div class="c-role">Lead Cloud Security Engineer <span>· Envestnet</span></div><div></div></div>
+        <div class="career-row"><div class="c-year">2019 — 21</div><div class="c-role">Cloud Security Engineer <span>· Hudson's Bay Company</span></div><div></div></div>
+        <div class="career-row"><div class="c-year">2017 — 19</div><div class="c-role">Cloud Security Consultant <span>· KPMG India</span></div><div></div></div>
+        <div class="career-row"><div class="c-year">2015 — 17</div><div class="c-role">Application Dev Engineer <span>· Accenture</span></div><div></div></div>
+      </div>
+
+      <div class="s-divider"></div>
+
+      <div class="s-label reveal">Credentials</div>
+      <div class="cred-strip">
+        <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="cred-chip"><span class="dot dot-aws"></span>AWS SA Professional</a>
+        <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="cred-chip"><span class="dot dot-aws"></span>AWS Security Specialty</a>
+        <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="cred-chip"><span class="dot dot-k8s"></span>CKA – Kubernetes</a>
+        <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="cred-chip"><span class="dot dot-togaf"></span>TOGAF 9.2 EA</a>
+        <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="cred-chip"><span class="dot dot-ai"></span>Red Teaming LLMs</a>
+        <span class="cred-chip"><span class="dot dot-edu"></span>M.Sc. CS, Univ. of Hyderabad</span>
+      </div>
+      <div class="credly-note reveal">All professional certifications verified on <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener">Credly →</a></div>
+
+      <div class="s-divider" id="advisory"></div>
+
+      <div class="advisory-block reveal-scale">
+        <div class="adv-title">vCISO &amp; Advisory for Early-Stage Startups</div>
+        <p class="adv-desc">
+          I help startups build <strong>security and compliance from day one</strong> — drawing from
+          hands-on experience securing AI/LLM products, leading compliance audits end-to-end,
+          and building <strong>product security programs at scale</strong>. No full-time hire needed.
+        </p>
+        <div class="adv-services">
+          <div class="adv-svc"><div class="adv-svc-title">vCISO Leadership</div><div class="adv-svc-desc">Security program, policies, board reporting, investor posture</div></div>
+          <div class="adv-svc"><div class="adv-svc-title">AI / LLM Compliance</div><div class="adv-svc-desc">Threat modeling, prompt injection defense, AIBOM, responsible AI</div></div>
+          <div class="adv-svc"><div class="adv-svc-title">Compliance Audits</div><div class="adv-svc-desc">SOC 2, ISO 27001, DPDP Act, SEBI CSCRF — gap to cert</div></div>
+          <div class="adv-svc"><div class="adv-svc-title">Product Security</div><div class="adv-svc-desc">Secure SDLC, SAST/DAST, threat modeling, vuln management</div></div>
+          <div class="adv-svc"><div class="adv-svc-title">Cloud Architecture</div><div class="adv-svc-desc">AWS / Azure / GCP hardening, CSPM, security in CI/CD</div></div>
+          <div class="adv-svc"><div class="adv-svc-title">Startup Mentorship</div><div class="adv-svc-desc">Security posture, investor-readiness, culture that scales</div></div>
+        </div>
+        <div class="adv-actions">
+          <a href="mailto:abhay.kx@gmail.com?subject=Advisory%20/%20vCISO%20Inquiry" class="h-link h-link-primary">Discuss Your Needs</a>
+          <a href="https://www.linkedin.com/in/iabhay/" target="_blank" rel="noopener" class="h-link h-link-secondary">Connect on LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="s-divider"></div>
+
+      <div class="contact-strip reveal">
+        <div class="contact-left">
+          <h3>Let's talk.</h3>
+          <p><a href="mailto:abhay.kx@gmail.com">abhay.kx@gmail.com</a> · Bengaluru, India</p>
+        </div>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/in/iabhay/" target="_blank" rel="noopener" class="s-link" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://github.com/ab-ha-y" target="_blank" rel="noopener" class="s-link" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="https://www.credly.com/users/iabhay" target="_blank" rel="noopener" class="s-link" title="Credly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></a>
+          <a href="https://www.instagram.com/thesec_guy/" target="_blank" rel="noopener" class="s-link" title="@thesec_guy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-line">© 2026 Abhay Kumar Prasad</div>
+    </div>
+  </div>
+
+  <script>
+  // ═══════════════════════════════════════════════
+  //  QUANTUM MESH — Interactive particle network
+  // ═══════════════════════════════════════════════
+  (function() {
+    const canvas = document.getElementById('quantumCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [], mouse = { x: -1000, y: -1000 };
+    const PARTICLE_COUNT = 90;
+    const CONNECT_DIST = 160;
+    const MOUSE_RADIUS = 200;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Track mouse globally (canvas is pointer-events:none, so we listen on document)
+    document.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    document.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+
+    // Particle class
+    class Particle {
+      constructor() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.radius = Math.random() * 1.5 + 0.5;
+        // Quantum colors: blue, cyan, purple
+        const colors = [
+          [88,166,255],   // blue
+          [34,211,238],   // cyan
+          [167,139,250],  // purple
+          [52,211,153],   // green
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.baseAlpha = Math.random() * 0.3 + 0.1;
+        this.alpha = this.baseAlpha;
+        // Quantum flicker
+        this.flickerSpeed = Math.random() * 0.02 + 0.005;
+        this.flickerPhase = Math.random() * Math.PI * 2;
+      }
+      update(t) {
+        // Drift
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Wrap around
+        if (this.x < 0) this.x = W;
+        if (this.x > W) this.x = 0;
+        if (this.y < 0) this.y = H;
+        if (this.y > H) this.y = 0;
+
+        // Mouse interaction: gentle attraction
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 1) {
+          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.008;
+          this.vx += dx / dist * force;
+          this.vy += dy / dist * force;
+          this.alpha = this.baseAlpha + (1 - dist / MOUSE_RADIUS) * 0.5;
+        } else {
+          this.alpha += (this.baseAlpha - this.alpha) * 0.05;
+        }
+
+        // Damping
+        this.vx *= 0.999;
+        this.vy *= 0.999;
+
+        // Quantum flicker
+        this.flickerPhase += this.flickerSpeed;
+        const flicker = 0.7 + 0.3 * Math.sin(this.flickerPhase + t * 0.001);
+        this.renderAlpha = this.alpha * flicker;
+      }
+      draw() {
+        const [r,g,b] = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${this.renderAlpha})`;
+        ctx.fill();
+
+        // Glow
+        if (this.renderAlpha > 0.3) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r},${g},${b},${this.renderAlpha * 0.15})`;
+          ctx.fill();
+        }
+      }
+    }
+
+    // Init particles
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+    // Mouse glow ring data
+    let mouseGlowAlpha = 0;
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DIST) {
+            const alpha = (1 - dist / CONNECT_DIST) * 0.12;
+            // Near-mouse connections glow brighter
+            const mx1 = Math.sqrt((particles[i].x - mouse.x)**2 + (particles[i].y - mouse.y)**2);
+            const mx2 = Math.sqrt((particles[j].x - mouse.x)**2 + (particles[j].y - mouse.y)**2);
+            const nearMouse = (mx1 < MOUSE_RADIUS || mx2 < MOUSE_RADIUS);
+            const boost = nearMouse ? 3 : 1;
+
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = nearMouse
+              ? `rgba(88,166,255,${alpha * boost})`
+              : `rgba(255,255,255,${alpha})`;
+            ctx.lineWidth = nearMouse ? 0.8 : 0.4;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawMouseGlow() {
+      const dx = mouse.x - (-1000);
+      if (mouse.x < -500) { mouseGlowAlpha *= 0.9; return; }
+      mouseGlowAlpha += (0.12 - mouseGlowAlpha) * 0.1;
+
+      // Outer ring
+      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_RADIUS);
+      grad.addColorStop(0, `rgba(88,166,255,${mouseGlowAlpha * 0.6})`);
+      grad.addColorStop(0.3, `rgba(88,166,255,${mouseGlowAlpha * 0.2})`);
+      grad.addColorStop(1, 'rgba(88,166,255,0)');
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, MOUSE_RADIUS, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Crosshair ring
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 30, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(88,166,255,${mouseGlowAlpha * 0.3})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+
+    let t = 0;
+    function animate() {
+      t++;
+      ctx.clearRect(0, 0, W, H);
+
+      // Fade canvas based on scroll (mesh fades as you scroll down)
+      const scrollFade = Math.max(0, 1 - window.scrollY / (H * 0.8));
+      ctx.globalAlpha = scrollFade;
+
+      particles.forEach(p => { p.update(t); });
+      drawConnections();
+      drawMouseGlow();
+      particles.forEach(p => p.draw());
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  // ═══════════════════════════════════════════════
+  //  APPLE-STYLE SCROLL ANIMATIONS
+  // ═══════════════════════════════════════════════
+
+  // ─── Scroll progress bar ───
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('scrollProgress').style.width = (window.scrollY / h * 100) + '%';
+  });
+
+  // ─── Nav appears on scroll ───
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 80));
+
+  // ─── Hero: cinematic parallax with scale + blur ───
+  const heroContent = document.querySelector('.hero-content');
+  const scrollHint = document.querySelector('.scroll-hint');
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY, vh = window.innerHeight;
+    if (s < vh) {
+      const p = s / vh;
+      heroContent.style.opacity = Math.max(0, 1 - p * 1.5);
+      heroContent.style.transform = `translateY(${s * 0.3}px) scale(${1 - p * 0.08})`;
+      heroContent.style.filter = `blur(${p * 6}px)`;
+      if (scrollHint) {
+        scrollHint.style.opacity = Math.max(0, 1 - p * 4);
+      }
+    }
+  });
+
+  // ─── About: Apple-style scroll-linked word brightening ───
+  // Split about text into individual word spans
+  (function() {
+    const aboutEl = document.getElementById('aboutText');
+    if (!aboutEl) return;
+    const text = aboutEl.textContent.trim();
+    // Highlight keywords
+    const highlights = ['Senior','Cloud','Security','Architect','Cargill','CSPM','Wiz','IaC',
+      'Terraform','LLM-powered','compliance','automation','InMobi','GenAI','KPMG','HBC','Envestnet',
+      'cloud','security','team','from','scratch'];
+
+    const words = text.split(/\s+/);
+    aboutEl.innerHTML = words.map(w => {
+      const isStrong = highlights.some(h => w.replace(/[^a-zA-Z-]/g,'').toLowerCase() === h.toLowerCase()
+        || w.replace(/[^a-zA-Z-]/g,'') === h);
+      return `<span class="scroll-word${isStrong ? ' strong' : ''}">${w}</span>`;
+    }).join(' ');
+
+    // Scroll handler: light up words progressively as user scrolls through section
+    function updateWordBrightness() {
+      const rect = aboutEl.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Progress: 0 when section enters bottom, 1 when section passes center
+      const progress = Math.max(0, Math.min(1, (vh * 0.8 - rect.top) / (rect.height + vh * 0.3)));
+
+      const wordEls = aboutEl.querySelectorAll('.scroll-word');
+      const total = wordEls.length;
+      const litCount = Math.floor(progress * total * 1.2); // slight overshoot for smoothness
+
+      wordEls.forEach((el, i) => {
+        el.classList.remove('lit', 'lit-strong');
+        if (i < litCount) {
+          el.classList.add(el.classList.contains('strong') ? 'lit-strong' : 'lit');
+        }
+      });
+    }
+    window.addEventListener('scroll', updateWordBrightness);
+    updateWordBrightness(); // run once on load
+  })();
+
+  // ─── Number counters: scroll-triggered with easeOut ───
+  let countersAnimated = false;
+  function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function animateCounters() {
+    if (countersAnimated) return;
+    countersAnimated = true;
+
+    document.querySelectorAll('.m-val[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const start = performance.now();
+
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(1, elapsed / duration);
+        const eased = easeOutQuart(progress);
+        const current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+
+    document.querySelectorAll('.m-val[data-text]').forEach(el => {
+      const text = el.dataset.text;
+      let i = 0;
+      const iv = setInterval(() => {
+        i++;
+        el.textContent = text.slice(0, i);
+        if (i >= text.length) clearInterval(iv);
+      }, 80);
+    });
+  }
+
+  // Trigger counters when metrics section scrolls into view
+  const metricsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { animateCounters(); metricsObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.metrics').forEach(el => metricsObs.observe(el));
+
+  // ─── Intersection observers for reveals ───
+  const createObs = (sel, opts = {}) => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          const d = opts.stagger ? i * (opts.staggerDelay || 100) : 0;
+          setTimeout(() => e.target.classList.add('visible'), d);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: opts.threshold || 0.1, rootMargin: '0px 0px -20px 0px' });
+    document.querySelectorAll(sel).forEach(el => obs.observe(el));
+  };
+  createObs('.reveal');
+  createObs('.reveal-scale');
+  createObs('.career-row', { stagger: true, staggerDelay: 80 });
+  createObs('.cred-chip', { stagger: true, staggerDelay: 60 });
+  createObs('.adv-svc', { stagger: true, staggerDelay: 80 });
+
+  // Hamburger
+  const hb = document.getElementById('hamburger'), nr = document.getElementById('navRight');
+  hb.addEventListener('click', () => { hb.classList.toggle('open'); nr.classList.toggle('open'); });
+  nr.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hb.classList.remove('open'); nr.classList.remove('open'); }));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); }
+    });
+  });
+  </script>
+</body>
+</html>
